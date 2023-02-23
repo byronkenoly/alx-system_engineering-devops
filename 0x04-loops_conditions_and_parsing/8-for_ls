@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script that displays content of current directory in list format
+
+FILES="$(ls)"
+
+for i in "$FILES";
+do
+	echo $i
+done
