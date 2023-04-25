@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Bash script that transfers a file from our client to a server
+
+# bash check for correct number of arguments
+if [ "$#" -lt 3 ]; then
+    echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+PATH_TO_FILE="$1"
+IP="$2"
+USERNAME="$3"
+PATH_TO_SSH_KEY="$4"
+
+# scp - secure copy
+# used to securely transfer files btwn two hosts
+# -i: selects file from which private key for pub key auth is read
+# -o: specify options for which there's no separate scp cmd-line flag
+scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP:~/"
