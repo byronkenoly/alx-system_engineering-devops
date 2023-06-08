@@ -1,14 +1,32 @@
 #!/usr/bin/env bash
 # Install NGINX web server
 
-apt-get -y update
-apt-get -y install nginx
+sudo apt -y update
+sudo apt -y install nginx
 
-# set up nginx to listen on port 80
-sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+if [ $? -eq 0]
+then
+    # set up nginx to listen on port 80
+    echo -e \
+"http {
+	server	{
+		listen	80;
+		location / {
+			root	/var/www/school;
+			index	/index.html;
+		}
+	}
+}
+events	{
+}" | sudo tee /etc/nginx/nginx.conf
+    sudo mkdir -p /var/www/school
+    echo "Hello World!" | sudo tee /var/www/school/index.html
 
-# restart nginx
-service nginx restart
+    # restart nginx
+    sudo service nginx start
 
-# page containing the string Hello World!
-echo "Hello World!" > /var/www/html/index.html
+else
+    echo "Nginx installation error"
+    exit 1
+fi
+exit 0
