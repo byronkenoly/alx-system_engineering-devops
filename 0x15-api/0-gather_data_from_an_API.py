@@ -3,9 +3,9 @@
 py script that returns employee info given the employee ID
 """
 
+import json
 from sys import argv
 from urllib.request import urlopen
-import json
 
 if __name__ == "__main__":
     usr = argv[1]
@@ -29,4 +29,4 @@ if __name__ == "__main__":
         print(f"Employee {name} is done with tasks({count}/{total}):")
         for task in tasks_dict:
             if task['completed'] is True:
-                print(f"\t{task['title']}")
+                print(f"\t {task['title']}")
